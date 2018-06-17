@@ -14,12 +14,12 @@ public class Counter {
      * @return Сумма четных чисел.
      */
     public int add(int start, int finish) {
-        int summ = 0;
+        int sum = 0;
         for (int i = start; i <= finish; i++) {
             if (i % 2 == 0) {
-                summ += i;
+                sum += i;
             }
         }
-        return summ;
+        return sum;
     }
 }
