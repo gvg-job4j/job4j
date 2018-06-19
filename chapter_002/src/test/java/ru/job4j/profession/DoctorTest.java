@@ -9,12 +9,12 @@ import static org.hamcrest.core.Is.is;
  * @author Valeriy Gyrievskikh
  * @since 17.06.2018.
  */
-public class ProfessionTest {
+public class DoctorTest {
     @Test
-    public void whenSetProfessionDoctorThenDoctor(){
+    public void whenSetNameDoctorThenDoctor(){
         Doctor doc = new Doctor();
-        doc.setProfession("Doctor");
-        String result = doc.getProfession();
+        doc.setName("Doctor");
+        String result = doc.getName();
         Assert.assertThat(result, is("Doctor"));
     }
 }
