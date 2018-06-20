@@ -56,8 +56,10 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item newItem1 = new Item("test1", "testDescription", 123L);
         Item newItem2 = new Item("test1", "testDescription", 1234L);
+        Item newItem3 = new Item("test3", "testDescription", 123L);
         tracker.add(newItem1);
         tracker.add(newItem2);
+        tracker.add(newItem3);
         assertThat(tracker.findByName("test1").length, is(2));
     }
 

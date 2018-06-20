@@ -46,7 +46,8 @@ public class Tracker {
      * @param item Заявка.
      */
     public void replace(String id, Item item) {
-        for (int i = 0; i < items.length; i++) {
+        if (position == 0) return;
+        for (int i = 0; i < position; i++) {
             if (items[i].getId().equals(id)) {
                 items[i] = item;
                 break;
@@ -60,15 +61,17 @@ public class Tracker {
      * @param id Идентификатор заявки.
      */
     public void delete(String id) {
-        for (int i = 0; i < items.length; i++) {
+        if (position == 0) return;
+        for (int i = 0; i < position; i++) {
             if (items[i].getId().equals(id)) {
                 items[i] = null;
-                Item[] temp = new Item[items.length - 1];
+                Item[] temp = new Item[position - 1];
                 System.out.println(Arrays.toString(items));
-                System.arraycopy(items, i + 1, temp, 0, items.length - (i + 1));
+                System.arraycopy(items, i + 1, temp, 0, position - (i + 1));
                 System.out.println(Arrays.toString(temp));
                 System.arraycopy(temp, 0, items, i, temp.length - i);
                 System.out.println(Arrays.toString(items));
+                position--;
                 break;
             }
         }
@@ -77,23 +80,15 @@ public class Tracker {
     /**
      * Метод, возвращающий список заявок.
      *
-     * @return Список заявок без пустых значений.
+     * @return Список заявок без пустых значений или null.
      */
     public Item[] findAll() {
-        int index = -1;
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] == null) {
-                index = i;
-                break;
-            }
+        Item[] createdItems = null;
+        if (position != 0) {
+            createdItems = new Item[position];
+            System.arraycopy(items, 0, createdItems, 0, createdItems.length);
         }
-        if (index == -1) {
-            return this.items;
-        } else {
-            Item[] temp = new Item[index];
-            System.arraycopy(items, 0, temp, 0, temp.length);
-            return temp;
-        }
+        return createdItems;
     }
 
     /**
@@ -103,22 +98,23 @@ public class Tracker {
      * @return Список заявок с одинаковым именем или null.
      */
     public Item[] findByName(String key) {
-        Item[] item = new Item[items.length];
-        int count = 0;
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] == null) break;
-            if (items[i].getName().equals(key)) {
-                item[count] = items[i];
-                count++;
+        Item[] itemsByName = null;
+        if (position != 0) {
+            Item[] temp = new Item[position];
+            int count = 0;
+            for (int i = 0; i < items.length; i++) {
+                if (items[i] == null) break;
+                if (items[i].getName().equals(key)) {
+                    temp[count] = items[i];
+                    count++;
+                }
+            }
+            if (count != 0) {
+                itemsByName = new Item[count];
+                System.arraycopy(temp, 0, itemsByName, 0, itemsByName.length);
             }
         }
-        if (count != 0) {
-            Item[] temp = new Item[count];
-            System.arraycopy(item, 0, temp, 0, temp.length);
-            return temp;
-        } else {
-            return null;
-        }
+        return itemsByName;
     }
 
     /**
@@ -129,8 +125,7 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item item = null;
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] == null) continue;
+        for (int i = 0; i < position; i++) {
             if (items[i].getId().equals(id)) {
                 item = items[i];
                 break;
