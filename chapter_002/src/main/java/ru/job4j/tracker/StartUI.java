@@ -82,7 +82,7 @@ public class StartUI {
                 this.findItemsByName();
             } else if (EXIT.equals(answer)) {
                 exit = true;
-            }else{
+            } else {
                 System.out.println("Указанный пункт меню не найден! Попробуйте снова...");
             }
         }

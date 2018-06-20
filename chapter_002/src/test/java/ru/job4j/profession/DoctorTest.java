@@ -11,7 +11,7 @@ import static org.hamcrest.core.Is.is;
  */
 public class DoctorTest {
     @Test
-    public void whenSetNameDoctorThenDoctor(){
+    public void whenSetNameDoctorThenDoctor() {
         Doctor doc = new Doctor();
         doc.setName("Doctor");
         String result = doc.getName();

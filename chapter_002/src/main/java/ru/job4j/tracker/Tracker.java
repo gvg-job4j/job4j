@@ -46,7 +46,9 @@ public class Tracker {
      * @param item Заявка.
      */
     public void replace(String id, Item item) {
-        if (position == 0) return;
+        if (position == 0) {
+            return;
+        }
         for (int i = 0; i < position; i++) {
             if (items[i].getId().equals(id)) {
                 items[i] = item;
@@ -61,7 +63,9 @@ public class Tracker {
      * @param id Идентификатор заявки.
      */
     public void delete(String id) {
-        if (position == 0) return;
+        if (position == 0) {
+            return;
+        }
         for (int i = 0; i < position; i++) {
             if (items[i].getId().equals(id)) {
                 items[i] = null;
@@ -103,7 +107,9 @@ public class Tracker {
             Item[] temp = new Item[position];
             int count = 0;
             for (int i = 0; i < items.length; i++) {
-                if (items[i] == null) break;
+                if (items[i] == null) {
+                    break;
+                }
                 if (items[i].getName().equals(key)) {
                     temp[count] = items[i];
                     count++;
