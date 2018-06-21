@@ -19,7 +19,7 @@ public class BubbleSortTest {
     }
 
     @Test
-    public void whenSortArrayWithАшмуElementsThenSortedArray() {
+    public void whenSortArrayWithFiveElementsThenSortedArray() {
         BubbleSort sort = new BubbleSort();
         int[] result = sort.sort(new int[]{5, 1, 2, 7, 3});
         int[] test = new int[]{1, 2, 3, 5, 7};

@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
 public class PointTest {
 
     @Test
-    public void DistanceBetweenTwoPoints(){
+    public void distanceBetweenTwoPoints() {
         Point point = new Point(1, 1);
         Point point2 = new Point(2, 2);
         double result = point.distanceTo(point2);

@@ -14,29 +14,31 @@ public class MergeTwoSortedArrays {
      */
     public int[] merge(int[] array1, int[] array2) {
         int[] mergedArray = new int[array1.length + array2.length];
-        int index1 = 0;
-        int index2 = 0;
-        int index3 = 0;
+        int left = 0;
+        int right = 0;
+        int full = 0;
         while (true) {
-            if (index1 < array1.length && index2 < array2.length) {
-                if (array1[index1] < array2[index2]) {
-                    mergedArray[index3] = array1[index1];
-                    index1++;
+            if (left < array1.length && right < array2.length) {
+                if (array1[left] < array2[right]) {
+                    mergedArray[full] = array1[left];
+                    left++;
                 } else {
-                    mergedArray[index3] = array2[index2];
-                    index2++;
+                    mergedArray[full] = array2[right];
+                    right++;
                 }
             } else {
-                if (index1 >= array1.length) {
-                    mergedArray[index3] = array2[index2];
-                    index2++;
+                if (left >= array1.length) {
+                    mergedArray[full] = array2[right];
+                    right++;
                 } else {
-                    mergedArray[index3] = array1[index1];
-                    index1++;
+                    mergedArray[full] = array1[left];
+                    left++;
                 }
             }
-            index3++;
-            if (index3 >= mergedArray.length) break;
+            full++;
+            if (full >= mergedArray.length) {
+                break;
+            }
         }
         return mergedArray;
     }

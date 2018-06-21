@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 public class PaintTest {
 
     @Test
-    public void whenPyramidHeight4(){
+    public void whenPyramidHeight4() {
         Paint paint = new Paint();
         String rst = paint.pyramid(4);
         System.out.println(rst);
@@ -31,7 +31,7 @@ public class PaintTest {
     }
 
     @Test
-    public void whenPyramidHeight2(){
+    public void whenPyramidHeight2() {
         Paint paint = new Paint();
         String rst = paint.pyramid(2);
         System.out.println(rst);

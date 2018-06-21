@@ -36,14 +36,16 @@ public class Logic3T {
                 }
             }
             for (int j = 0; j < table.length; j++) {
-                if ((table[0][0].hasMarkX() && !table[j][j].hasMarkX()) ||
-                        (table[0][table.length - 1].hasMarkX() && !table[j][table.length - 1 - j].hasMarkX())) {
+                if ((table[0][0].hasMarkX() && !table[j][j].hasMarkX())
+                        || (table[0][table.length - 1].hasMarkX() && !table[j][table.length - 1 - j].hasMarkX())) {
                     diagonal = false;
                     break;
                 }
             }
         }
-        if (line || column || diagonal) winX = true;
+        if (line || column || diagonal) {
+            winX = true;
+        }
         return winX;
     }
 
@@ -72,14 +74,16 @@ public class Logic3T {
                 }
             }
             for (int j = 0; j < table.length; j++) {
-                if ((table[0][0].hasMarkO() && !table[j][j].hasMarkO()) ||
-                        (table[0][table.length - 1].hasMarkO() && !table[j][table.length - 1 - j].hasMarkO())) {
+                if ((table[0][0].hasMarkO() && !table[j][j].hasMarkO())
+                        || (table[0][table.length - 1].hasMarkO() && !table[j][table.length - 1 - j].hasMarkO())) {
                     diagonal = false;
                     break;
                 }
             }
         }
-        if (line || column || diagonal) winO = true;
+        if (line || column || diagonal) {
+            winO = true;
+        }
         return winO;
     }
 
