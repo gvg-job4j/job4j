@@ -6,7 +6,7 @@ import java.util.Scanner;
  * @author Valeriy Gyrievskikh
  * @since 20.06.2018.
  */
-public class ConsoleInput {
+public class ConsoleInput implements Input {
 
     /**
      * Устройство ввода информации.
@@ -19,6 +19,7 @@ public class ConsoleInput {
      * @param message Сообщение пользователю с описанием ожидаемой информации.
      * @return Полученные данные от пользователя.
      */
+    @Override
     public String ask(String message) {
         System.out.println(message);
         return scanner.nextLine();

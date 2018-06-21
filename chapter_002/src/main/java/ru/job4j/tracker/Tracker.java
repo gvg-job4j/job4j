@@ -68,11 +68,8 @@ public class Tracker {
                 if (items[i].getId().equals(id)) {
                     items[i] = null;
                     Item[] temp = new Item[position - 1];
-                    System.out.println(Arrays.toString(items));
                     System.arraycopy(items, i + 1, temp, 0, position - (i + 1));
-                    System.out.println(Arrays.toString(temp));
                     System.arraycopy(temp, 0, items, i, temp.length - i);
-                    System.out.println(Arrays.toString(items));
                     position--;
                     break;
                 }
