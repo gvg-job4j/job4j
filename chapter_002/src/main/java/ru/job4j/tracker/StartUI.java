@@ -128,7 +128,6 @@ public class StartUI {
             String desc = this.input.ask("Введите новое описание заявки :");
             if (name != null && !name.equals("") && desc != null && !desc.equals("")) {
                 Item newItem = new Item(name, desc);
-                newItem.setId(id);
                 this.tracker.replace(id, newItem);
                 System.out.println("------------ Изменена заявка с getId : " + item.getId() + "-----------");
             } else {

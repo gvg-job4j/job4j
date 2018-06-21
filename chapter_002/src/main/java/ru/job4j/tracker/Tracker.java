@@ -46,13 +46,13 @@ public class Tracker {
      * @param item Заявка.
      */
     public void replace(String id, Item item) {
-        if (position == 0) {
-            return;
-        }
-        for (int i = 0; i < position; i++) {
-            if (items[i].getId().equals(id)) {
-                items[i] = item;
-                break;
+        if (position != 0) {
+            for (int i = 0; i < position; i++) {
+                if (items[i].getId().equals(id)) {
+                    item.setId(id);
+                    items[i] = item;
+                    break;
+                }
             }
         }
     }
@@ -63,20 +63,19 @@ public class Tracker {
      * @param id Идентификатор заявки.
      */
     public void delete(String id) {
-        if (position == 0) {
-            return;
-        }
-        for (int i = 0; i < position; i++) {
-            if (items[i].getId().equals(id)) {
-                items[i] = null;
-                Item[] temp = new Item[position - 1];
-                System.out.println(Arrays.toString(items));
-                System.arraycopy(items, i + 1, temp, 0, position - (i + 1));
-                System.out.println(Arrays.toString(temp));
-                System.arraycopy(temp, 0, items, i, temp.length - i);
-                System.out.println(Arrays.toString(items));
-                position--;
-                break;
+        if (position != 0) {
+            for (int i = 0; i < position; i++) {
+                if (items[i].getId().equals(id)) {
+                    items[i] = null;
+                    Item[] temp = new Item[position - 1];
+                    System.out.println(Arrays.toString(items));
+                    System.arraycopy(items, i + 1, temp, 0, position - (i + 1));
+                    System.out.println(Arrays.toString(temp));
+                    System.arraycopy(temp, 0, items, i, temp.length - i);
+                    System.out.println(Arrays.toString(items));
+                    position--;
+                    break;
+                }
             }
         }
     }
