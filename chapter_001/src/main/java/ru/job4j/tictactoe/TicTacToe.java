@@ -101,6 +101,7 @@ public class TicTacToe extends Application {
                             this.buildMarkO(rect.getX(), rect.getY(), 50)
                     );
                 }
+                this.checkWinner(); //проверка на наличие победителя
                 this.checkState();
             }
         };

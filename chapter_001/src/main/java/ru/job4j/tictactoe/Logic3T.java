@@ -1,12 +1,23 @@
 package ru.job4j.tictactoe;
 
+import java.util.function.Predicate;
+
 /**
  * @author Valeriy Gyrievskikh
  * @since 15.06.2018.
  */
 public class Logic3T {
+
+    /**
+     * Игровое поле.
+     */
     private final Figure3T[][] table;
 
+    /**
+     * Конструктор, инициализирующий игровое поле.
+     *
+     * @param table Игровое поле.
+     */
     public Logic3T(Figure3T[][] table) {
         this.table = table;
     }
@@ -17,36 +28,15 @@ public class Logic3T {
      * @return Результат проверки.
      */
     public boolean isWinnerX() {
-        boolean winX = false;
-        boolean column = true;
-        boolean line = true;
-        boolean diagonal = true;
 
-        for (int i = 0; i < table.length; i++) {
-            for (int j = 0; j < table.length; j++) {
-                if (table[i][0].hasMarkX() && !table[i][j].hasMarkX()) {
-                    line = false;
-                    break;
-                }
-            }
-            for (int j = 0; j < table.length; j++) {
-                if (table[0][i].hasMarkX() && !table[j][i].hasMarkX()) {
-                    column = false;
-                    break;
-                }
-            }
-            for (int j = 0; j < table.length; j++) {
-                if ((table[0][0].hasMarkX() && !table[j][j].hasMarkX())
-                        || (table[0][table.length - 1].hasMarkX() && !table[j][table.length - 1 - j].hasMarkX())) {
-                    diagonal = false;
-                    break;
-                }
-            }
-        }
-        if (line || column || diagonal) {
-            winX = true;
-        }
-        return winX;
+        return this.fillBy(Figure3T::hasMarkX, 0, 0, 1, 0) ||
+                this.fillBy(Figure3T::hasMarkX, 0, 0, 0, 1) ||
+                this.fillBy(Figure3T::hasMarkX, 0, 0, 1, 1) ||
+                this.fillBy(Figure3T::hasMarkX, 1, 0, 0, 1) ||
+                this.fillBy(Figure3T::hasMarkX, 0, 1, 1, 0) ||
+                this.fillBy(Figure3T::hasMarkX, this.table.length - 1, this.table.length - 1, -1, 0) ||
+                this.fillBy(Figure3T::hasMarkX, this.table.length - 1, this.table.length - 1, 0, -1) ||
+                this.fillBy(Figure3T::hasMarkX, this.table.length - 1, 0, -1, 1);
     }
 
     /**
@@ -55,36 +45,38 @@ public class Logic3T {
      * @return Результат проверки.
      */
     public boolean isWinnerO() {
-        boolean winO = false;
-        boolean column = true;
-        boolean line = true;
-        boolean diagonal = true;
+        return this.fillBy(Figure3T::hasMarkO, 0, 0, 1, 0) ||
+                this.fillBy(Figure3T::hasMarkO, 0, 0, 0, 1) ||
+                this.fillBy(Figure3T::hasMarkO, 0, 0, 1, 1) ||
+                this.fillBy(Figure3T::hasMarkO, 1, 0, 0, 1) ||
+                this.fillBy(Figure3T::hasMarkO, 0, 1, 1, 0) ||
+                this.fillBy(Figure3T::hasMarkO, this.table.length - 1, this.table.length - 1, -1, 0) ||
+                this.fillBy(Figure3T::hasMarkO, this.table.length - 1, this.table.length - 1, 0, -1) ||
+                this.fillBy(Figure3T::hasMarkO, this.table.length - 1, 0, -1, 1);
+    }
 
-        for (int i = 0; i < table.length; i++) {
-            for (int j = 0; j < table.length; j++) {
-                if (table[i][0].hasMarkO() && !table[i][j].hasMarkO()) {
-                    line = false;
-                    break;
-                }
-            }
-            for (int j = 0; j < table.length; j++) {
-                if (table[0][i].hasMarkO() && !table[j][i].hasMarkO()) {
-                    column = false;
-                    break;
-                }
-            }
-            for (int j = 0; j < table.length; j++) {
-                if ((table[0][0].hasMarkO() && !table[j][j].hasMarkO())
-                        || (table[0][table.length - 1].hasMarkO() && !table[j][table.length - 1 - j].hasMarkO())) {
-                    diagonal = false;
-                    break;
-                }
+    /**
+     * Метод проверяет выигрышные позиции.
+     *
+     * @param predicate Проверяемое состояние игрового поля.
+     * @param startX    Координата Х начальной точки.
+     * @param startY    Координата Y начальной точки.
+     * @param deltaX    Изменение координаты по Х.
+     * @param deltaY    Изменение координаты по Y.
+     * @return Результат проверки.
+     */
+    public boolean fillBy(Predicate<Figure3T> predicate, int startX, int startY, int deltaX, int deltaY) {
+        boolean result = true;
+        for (int index = 0; index != this.table.length; index++) {
+            Figure3T cell = this.table[startX][startY];
+            startX += deltaX;
+            startY += deltaY;
+            if (!predicate.test(cell)) {
+                result = false;
+                break;
             }
         }
-        if (line || column || diagonal) {
-            winO = true;
-        }
-        return winO;
+        return result;
     }
 
     /**
