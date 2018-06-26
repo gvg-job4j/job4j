@@ -41,6 +41,7 @@ public class StartUI {
             if (key >= 0 && key <= 5) {
                 menu.select(key);
             } else if (key == 6) {
+                menu.select(key);
                 exit = true;
             } else {
                 System.out.println("Указанный пункт меню не найден! Попробуйте снова...");
