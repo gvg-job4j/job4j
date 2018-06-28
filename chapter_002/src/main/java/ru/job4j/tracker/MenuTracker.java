@@ -87,7 +87,7 @@ public class MenuTracker {
             String name = input.ask("Enter the task's name:");
             String desc = input.ask("Enter the task's description :");
             Item item = tracker.add(new Item(name, desc));
-            System.out.println(String.format("Создана новая заявка: %s. %s", item.getId(), item.getName()));
+            System.out.println("Создана новая заявка: " + item.toString());
         }
 
         /**
@@ -126,7 +126,7 @@ public class MenuTracker {
             if (items != null) {
                 for (Item item : tracker.findAll()
                         ) {
-                    System.out.println(String.format("Заявка: %s. %s", item.getId(), item.getName()));
+                    System.out.println("Заявка: " + item.toString());
                 }
             } else {
                 System.out.println("Заявок нет...");
@@ -166,8 +166,13 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Enter the task's id:");
-            tracker.delete(id);
-            System.out.println("Удалена заявка: " + id);
+            Item item = tracker.findById(id);
+            if(item != null){
+                tracker.delete(id);
+                System.out.println("Удалена заявка: " + id);
+            }else{
+                System.out.println("Удаление не выполнено! Не найдена заявка с идентификатором: " + id);
+            }
         }
 
         /**
@@ -205,9 +210,9 @@ public class MenuTracker {
             String id = input.ask("Enter the task's id:");
             Item item = tracker.findById(id);
             if (item != null){
-                System.out.println(String.format("Найдена заявка: %s. %s", item.getId(), item.getName()));
+                System.out.println("Найдена заявка: " + item.toString());
             }else{
-                System.out.println("Не найдены заявки с идентификатором: " + id);
+                System.out.println("Не найдена заявка с идентификатором: " + id);
             }
         }
 
@@ -285,7 +290,9 @@ class EditItem implements UserAction {
         Item item = new Item(name, desc);
         tracker.replace(id, item);
         item = tracker.findById(id);
-        System.out.println(String.format("Изменена заявка: %s. %s", item.getId(), item.getName()));
+        if (item != null){
+            System.out.println("Изменена заявка: " + item.toString());
+        }
     }
 
     /**
@@ -325,7 +332,7 @@ class FindItemsByName implements UserAction {
         if (items != null) {
             for (Item item : items
                     ) {
-                System.out.println(String.format("Найдена заявка: %s. %s", item.getId(), item.getName()));
+                System.out.println("Найдена заявка: " + item.toString());
             }
         }else{
             System.out.println("Не найдены заявки с наименованием: " + name);

@@ -119,4 +119,8 @@ public class Item {
     public void setNumber(long number) {
         this.number = number;
     }
+
+    public String toString(){
+        return String.format("%s. %s", this.getId(), this.getName());
+    }
 }
