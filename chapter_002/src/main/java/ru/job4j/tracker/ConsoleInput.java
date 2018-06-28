@@ -24,4 +24,28 @@ public class ConsoleInput implements Input {
         System.out.println(message);
         return scanner.nextLine();
     }
+
+    /**
+     * Метод проверяет корректность ввода данных пользователем.
+     *
+     * @param message Сообщение пользователю.
+     * @param range   Список доступных значений.
+     * @return Введеное значение.
+     */
+    @Override
+    public int ask(String message, int[] range) {
+        int key = Integer.valueOf(this.ask(message));
+        boolean exist = false;
+        for (int i = 0; i < range.length; i++) {
+            if (range[i] == key) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Please input value from menu range...");
+        }
+    }
 }

@@ -17,6 +17,11 @@ public class StartUI {
     private final Tracker tracker;
 
     /**
+     *
+     */
+    private int[] ranges;
+
+    /**
      * Конструтор инициализирующий поля.
      *
      * @param input   ввод данных.
@@ -34,18 +39,16 @@ public class StartUI {
 
         boolean exit = false;
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
-        menu.fillActions();
+        ranges = menu.fillActions();
         do {
             menu.show();
-            int key = Integer.parseInt(this.input.ask("Select: "));
-            if (key >= 0 && key <= 5) {
-                menu.select(key);
-            } else if (key == 6) {
-                menu.select(key);
+//            menu.select(this.input.ask("Select: ", ranges));
+//            int key = Integer.parseInt(this.input.ask("Select: "));
+            int key = this.input.ask("Select: ", ranges);
+            if (key == 6) {
                 exit = true;
-            } else {
-                System.out.println("Указанный пункт меню не найден! Попробуйте снова...");
             }
+            menu.select(key);
         } while (!exit);
     }
 
@@ -55,6 +58,6 @@ public class StartUI {
      * @param args
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }

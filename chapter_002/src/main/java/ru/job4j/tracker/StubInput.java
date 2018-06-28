@@ -39,4 +39,16 @@ public class StubInput implements Input {
     public String ask(String question) {
         return this.value[this.position++];
     }
+
+    /**
+     * Метод проверяет корректность ввода данных пользователем.
+     *
+     * @param message Сообщение пользователю.
+     * @param range   Список доступных значений.
+     * @return Введеное значение.
+     */
+    @Override
+    public int ask(String message, int[] range) {
+        return this.position++;
+    }
 }

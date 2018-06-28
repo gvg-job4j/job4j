@@ -32,7 +32,7 @@ public class MenuTracker {
     /**
      * Заполняет меню программы
      */
-    public void fillActions() {
+    public int[] fillActions() {
         this.actions[0] = this.new AddItem();
         this.actions[1] = new ShowItems();
         this.actions[2] = new EditItem();
@@ -40,6 +40,13 @@ public class MenuTracker {
         this.actions[4] = new FindItemById();
         this.actions[5] = new FindItemsByName();
         this.actions[6] = new TrackerExit();
+        int[] keys = new int[actions.length];
+        for (int i = 0; i < actions.length; i++) {
+            if (actions[i] != null) {
+                keys[i] = actions[i].key();
+            }
+        }
+        return keys;
     }
 
     /**
@@ -167,10 +174,10 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Enter the task's id:");
             Item item = tracker.findById(id);
-            if(item != null){
+            if (item != null) {
                 tracker.delete(id);
                 System.out.println("Удалена заявка: " + id);
-            }else{
+            } else {
                 System.out.println("Удаление не выполнено! Не найдена заявка с идентификатором: " + id);
             }
         }
@@ -209,9 +216,9 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             String id = input.ask("Enter the task's id:");
             Item item = tracker.findById(id);
-            if (item != null){
+            if (item != null) {
                 System.out.println("Найдена заявка: " + item.toString());
-            }else{
+            } else {
                 System.out.println("Не найдена заявка с идентификатором: " + id);
             }
         }
@@ -285,13 +292,15 @@ class EditItem implements UserAction {
     @Override
     public void execute(Input input, Tracker tracker) {
         String id = input.ask("Enter the task's id:");
-        String name = input.ask("Enter the task's name:");
-        String desc = input.ask("Enter the task's description :");
-        Item item = new Item(name, desc);
-        tracker.replace(id, item);
-        item = tracker.findById(id);
-        if (item != null){
+        Item item = tracker.findById(id);
+        if (item != null) {
+            String name = input.ask("Enter the task's name:");
+            String desc = input.ask("Enter the task's description :");
+            item = new Item(name, desc);
+            tracker.replace(id, item);
             System.out.println("Изменена заявка: " + item.toString());
+        }else{
+            System.out.println("Не найдена заявка с идентификатором: " + id);
         }
     }
 
@@ -334,7 +343,7 @@ class FindItemsByName implements UserAction {
                     ) {
                 System.out.println("Найдена заявка: " + item.toString());
             }
-        }else{
+        } else {
             System.out.println("Не найдены заявки с наименованием: " + name);
         }
     }
