@@ -49,6 +49,6 @@ public class StubInput implements Input {
      */
     @Override
     public int ask(String message, int[] range) {
-        return this.position++;
+        return Integer.valueOf(this.value[this.position++]);
     }
 }
