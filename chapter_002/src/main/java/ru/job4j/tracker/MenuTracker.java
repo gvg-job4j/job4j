@@ -299,7 +299,7 @@ class EditItem implements UserAction {
             item = new Item(name, desc);
             tracker.replace(id, item);
             System.out.println("Изменена заявка: " + item.toString());
-        }else{
+        } else {
             System.out.println("Не найдена заявка с идентификатором: " + id);
         }
     }

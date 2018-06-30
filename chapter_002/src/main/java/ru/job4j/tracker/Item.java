@@ -120,7 +120,7 @@ public class Item {
         this.number = number;
     }
 
-    public String toString(){
+    public String toString() {
         return String.format("%s. %s", this.getId(), this.getName());
     }
 }
