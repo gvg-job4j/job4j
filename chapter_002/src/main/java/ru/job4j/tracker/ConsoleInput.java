@@ -42,10 +42,9 @@ public class ConsoleInput implements Input {
                 break;
             }
         }
-        if (exist) {
-            return key;
-        } else {
+        if (!exist) {
             throw new MenuOutException("Please input value from menu range...");
         }
+        return key;
     }
 }

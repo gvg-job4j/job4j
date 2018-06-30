@@ -17,11 +17,6 @@ public class StartUI {
     private final Tracker tracker;
 
     /**
-     *
-     */
-    private int[] ranges;
-
-    /**
      * Конструтор инициализирующий поля.
      *
      * @param input   ввод данных.
@@ -39,11 +34,9 @@ public class StartUI {
 
         boolean exit = false;
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
-        ranges = menu.fillActions();
+        int[] ranges = menu.fillActions();
         do {
             menu.show();
-//            menu.select(this.input.ask("Select: ", ranges));
-//            int key = Integer.parseInt(this.input.ask("Select: "));
             int key = this.input.ask("Select: ", ranges);
             if (key == 6) {
                 exit = true;
