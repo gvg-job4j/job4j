@@ -33,13 +33,13 @@ public class MenuTracker {
      * Заполняет меню программы
      */
     public int[] fillActions() {
-        this.actions[0] = this.new AddItem();
-        this.actions[1] = new ShowItems();
-        this.actions[2] = new EditItem();
-        this.actions[3] = this.new DeleteItem();
-        this.actions[4] = new FindItemById();
-        this.actions[5] = new FindItemsByName();
-        this.actions[6] = new TrackerExit();
+        this.actions[0] = this.new AddItem(0, "Add the new item.");
+        this.actions[1] = new ShowItems(1, "Show all items.");
+        this.actions[2] = new EditItem(2, "Edit selected item.");
+        this.actions[3] = this.new DeleteItem(3, "Delete selected item.");
+        this.actions[4] = new FindItemById(4, "Find item by id.");
+        this.actions[5] = new FindItemsByName(5, "Find items by name.");
+        this.actions[6] = new TrackerExit(6, "Exit.");
         int[] keys = new int[actions.length];
         for (int i = 0; i < actions.length; i++) {
             if (actions[i] != null) {
@@ -73,14 +73,16 @@ public class MenuTracker {
     /**
      * Внутренний класс, создает объект, выполняющий добавление заявки.
      */
-    private class AddItem implements UserAction {
+    private class AddItem extends BaseAction {
 
         /**
-         * @return Пункт меню, соответсвующий методу данного класса.
+         * Конструктор.
+         *
+         * @param key  Пункт меню.
+         * @param name Текст меню.
          */
-        @Override
-        public int key() {
-            return 0;
+        public AddItem(int key, String name) {
+            super(key, name);
         }
 
         /**
@@ -96,29 +98,21 @@ public class MenuTracker {
             Item item = tracker.add(new Item(name, desc));
             System.out.println("Создана новая заявка: " + item.toString());
         }
-
-        /**
-         * Метод выводит строку меню для данного объекта.
-         *
-         * @return Строка меню.
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Add the new item.");
-        }
     }
 
     /**
      * Внутренний статический класс, выполняет вывод всех заявок.
      */
-    private static class ShowItems implements UserAction {
+    private static class ShowItems extends BaseAction {
 
         /**
-         * @return Пункт меню, соответсвующий методу данного класса.
+         * Конструктор.
+         *
+         * @param key  Пункт меню.
+         * @param name Текст меню.
          */
-        @Override
-        public int key() {
-            return 1;
+        public ShowItems(int key, String name) {
+            super(key, name);
         }
 
         /**
@@ -139,29 +133,21 @@ public class MenuTracker {
                 System.out.println("Заявок нет...");
             }
         }
-
-        /**
-         * Метод выводит строку меню для данного объекта.
-         *
-         * @return Строка меню.
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Show all items.");
-        }
     }
 
     /**
      * Внутренний класс, создает объект, выполняющий удаление заявки по идентификатору.
      */
-    private class DeleteItem implements UserAction {
+    private class DeleteItem extends BaseAction {
 
         /**
-         * @return Пункт меню, соответсвующий методу данного класса.
+         * Конструктор.
+         *
+         * @param key  Пункт меню.
+         * @param name Текст меню.
          */
-        @Override
-        public int key() {
-            return 3;
+        public DeleteItem(int key, String name) {
+            super(key, name);
         }
 
         /**
@@ -181,29 +167,21 @@ public class MenuTracker {
                 System.out.println("Удаление не выполнено! Не найдена заявка с идентификатором: " + id);
             }
         }
-
-        /**
-         * Метод выводит строку меню для данного объекта.
-         *
-         * @return Строка меню.
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Delete selected item.");
-        }
     }
 
     /**
      * Внутренний статический класс, создает объект, выполняющий поиск заявки по идентификатору.
      */
-    private static class FindItemById implements UserAction {
+    private static class FindItemById extends BaseAction {
 
         /**
-         * @return Пункт меню, соответсвующий методу данного класса.
+         * Конструктор.
+         *
+         * @param key  Пункт меню.
+         * @param name Текст меню.
          */
-        @Override
-        public int key() {
-            return 4;
+        public FindItemById(int key, String name) {
+            super(key, name);
         }
 
         /**
@@ -222,29 +200,21 @@ public class MenuTracker {
                 System.out.println("Не найдена заявка с идентификатором: " + id);
             }
         }
-
-        /**
-         * Метод выводит строку меню для данного объекта.
-         *
-         * @return Строка меню.
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Find item by id.");
-        }
     }
 
     /**
      * Внутренний статический класс, вызов приводит к выходу из программы.
      */
-    private static class TrackerExit implements UserAction {
+    private static class TrackerExit extends BaseAction {
 
         /**
-         * @return Пункт меню, соответсвующий методу данного класса.
+         * Конструктор.
+         *
+         * @param key  Пункт меню.
+         * @param name Текст меню.
          */
-        @Override
-        public int key() {
-            return 6;
+        public TrackerExit(int key, String name) {
+            super(key, name);
         }
 
         /**
@@ -257,30 +227,22 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("Выход из программы...");
         }
-
-        /**
-         * Метод выводит строку меню для данного объекта.
-         *
-         * @return Строка меню.
-         */
-        @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Exit.");
-        }
     }
 }
 
 /**
  * Внешний класс, создает объект, выполняющий редактирование заявки.
  */
-class EditItem implements UserAction {
+class EditItem extends BaseAction {
 
     /**
-     * @return Пункт меню, соответсвующий методу данного класса.
+     * Конструктор.
+     *
+     * @param key  Пункт меню.
+     * @param name Текст меню.
      */
-    @Override
-    public int key() {
-        return 2;
+    public EditItem(int key, String name) {
+        super(key, name);
     }
 
     /**
@@ -303,29 +265,21 @@ class EditItem implements UserAction {
             System.out.println("Не найдена заявка с идентификатором: " + id);
         }
     }
-
-    /**
-     * Метод выводит строку меню для данного объекта.
-     *
-     * @return Строка меню.
-     */
-    @Override
-    public String info() {
-        return String.format("%s. %s", this.key(), "Edit selected item.");
-    }
 }
 
 /**
  * Внешний класс, создает объект, выполняющий поиск заявок по нименованию.
  */
-class FindItemsByName implements UserAction {
+class FindItemsByName extends BaseAction {
 
     /**
-     * @return Пункт меню, соответсвующий методу данного класса.
+     * Конструктор.
+     *
+     * @param key  Пункт меню.
+     * @param name Текст меню.
      */
-    @Override
-    public int key() {
-        return 5;
+    public FindItemsByName(int key, String name) {
+        super(key, name);
     }
 
     /**
@@ -346,15 +300,5 @@ class FindItemsByName implements UserAction {
         } else {
             System.out.println("Не найдены заявки с наименованием: " + name);
         }
-    }
-
-    /**
-     * Метод выводит строку меню для данного объекта.
-     *
-     * @return Строка меню.
-     */
-    @Override
-    public String info() {
-        return String.format("%s. %s", this.key(), "Find items by name.");
     }
 }
