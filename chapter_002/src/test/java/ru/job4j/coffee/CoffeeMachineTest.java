@@ -20,18 +20,18 @@ public class CoffeeMachineTest {
     }
 
     @Test
-    public void whenMoneyNotEqualCostOn65() {
+    public void whenMoneyNotEqualCostOn18() {
         CoffeeMachine machine = new CoffeeMachine();
-        int[] result = machine.changes(100, 35);
-        int[] expect = new int[]{10, 10, 10, 10, 10, 10, 5};
+        int[] result = machine.changes(100, 82);
+        int[] expect = new int[]{10, 5, 2, 1};
         Assert.assertThat(result, is(expect));
     }
 
     @Test
-    public void whenMoneyNotEqualCostOn5() {
+    public void whenMoneyNotEqualCostOn3() {
         CoffeeMachine machine = new CoffeeMachine();
-        int[] result = machine.changes(10000, 9995);
-        int[] expect = new int[]{5};
+        int[] result = machine.changes(10000, 9997);
+        int[] expect = new int[]{2, 1};
         Assert.assertThat(result, is(expect));
     }
 

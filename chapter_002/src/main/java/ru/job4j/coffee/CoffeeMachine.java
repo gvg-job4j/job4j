@@ -39,7 +39,7 @@ public class CoffeeMachine {
             if (count != 0) {
                 moneyBack = new int[count];
                 count = 0;
-                for (int i = countBack.length - 1; i > 0; i--) {
+                for (int i = countBack.length - 1; i >= 0; i--) {
                     if (countBack[i] != 0) {
                         for (int j = 0; j < countBack[i]; j++) {
                             moneyBack[count] = money[i];
