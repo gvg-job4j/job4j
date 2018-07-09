@@ -1,5 +1,7 @@
 package ru.job4j.coffee;
 
+import java.util.Arrays;
+
 /**
  * @author Valeriy Gyrievskikh.
  * @since 04.07.2018.
@@ -8,7 +10,7 @@ public class CoffeeMachine {
     /**
      * Массив доступных номиналов для сдачи.
      */
-    private int[] money = new int[]{1, 2, 5, 10};
+    private int[] money = new int[]{10, 5, 2, 1};
 
     /**
      * Метод возвращает сдачу.
@@ -18,36 +20,28 @@ public class CoffeeMachine {
      * @return Массив номиналов на сумму сдачи.
      */
     int[] changes(int value, int price) {
-        int[] moneyBack = new int[]{0};
+        int[] moneyBack = null;
         int change = value - price;
         if (change > 0) {
-            int[] countBack = new int[]{0, 0, 0, 0};
-            int length = money.length;
-            while (change > 0) {
-                if (change / money[length - 1] > 0) {
-                    countBack[length - 1] = change / money[length - 1];
-                }
-                change -= (change / money[length - 1]) * money[length - 1];
-                length--;
-            }
             int count = 0;
-            for (int i = 0; i < countBack.length; i++) {
-                if (countBack[i] != 0) {
-                    count += countBack[i];
+            int[] countBack = new int[]{0, 0, 0, 0};
+            for (int coin : money
+                    ) {
+                while (change - coin >= 0) {
+                    change -= coin;
+                    countBack[count] += coin;
+                }
+                if (countBack[count] != 0) {
+                    count++;
+                }
+                if (change == 0) {
+                    break;
                 }
             }
-            if (count != 0) {
-                moneyBack = new int[count];
-                count = 0;
-                for (int i = countBack.length - 1; i >= 0; i--) {
-                    if (countBack[i] != 0) {
-                        for (int j = 0; j < countBack[i]; j++) {
-                            moneyBack[count] = money[i];
-                            count++;
-                        }
-                    }
-                }
-            }
+            moneyBack = new int[count];
+            System.arraycopy(countBack, 0, moneyBack, 0, count);
+        } else {
+            moneyBack = new int[]{0};
         }
         return moneyBack;
     }
