@@ -1,7 +1,5 @@
 package ru.job4j.coffee;
 
-import java.util.Arrays;
-
 /**
  * @author Valeriy Gyrievskikh.
  * @since 04.07.2018.
@@ -20,7 +18,7 @@ public class CoffeeMachine {
      * @return Массив номиналов на сумму сдачи.
      */
     int[] changes(int value, int price) {
-        int[] moneyBack = null;
+        int[] moneyBack = new int[]{0};
         int change = value - price;
         if (change > 0) {
             int count = 0;
@@ -40,8 +38,6 @@ public class CoffeeMachine {
             }
             moneyBack = new int[count];
             System.arraycopy(countBack, 0, moneyBack, 0, count);
-        } else {
-            moneyBack = new int[]{0};
         }
         return moneyBack;
     }
