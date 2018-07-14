@@ -46,7 +46,7 @@ public class ConvertList2ArrayTest {
     public void when2ElementsThen4() {
         ConvertList2Array list = new ConvertList2Array();
         int[][] result = list.toArray(
-                Arrays.asList(1,2),
+                Arrays.asList(1, 2),
                 4
         );
         int[][] expect = {
