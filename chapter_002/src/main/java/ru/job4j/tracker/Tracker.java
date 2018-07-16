@@ -1,6 +1,6 @@
 package ru.job4j.tracker;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -9,9 +9,9 @@ import java.util.Date;
  */
 public class Tracker {
     /**
-     * Массив для хранения заявок.
+     * Список для хранения заявок.
      */
-    private final Item[] items = new Item[100];
+    private final ArrayList<Item> items = new ArrayList<>();
 
     /**
      * Указатель ячейки для новой заявки.
@@ -25,13 +25,12 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[this.position++] = item;
+        this.items.add(this.position++, item);
         return item;
     }
 
     /**
      * Метод генерирует уникальный ключ для заявки.
-     * Так как у заявки нет уникальности полей, имени и описание. Для идентификации нам нужен уникальный ключ.
      *
      * @return Уникальный ключ.
      */
@@ -48,9 +47,9 @@ public class Tracker {
     public void replace(String id, Item item) {
         if (position != 0) {
             for (int i = 0; i < position; i++) {
-                if (items[i].getId().equals(id)) {
+                if (items.get(i).getId().equals(id)) {
                     item.setId(id);
-                    items[i] = item;
+                    items.set(i, item);
                     break;
                 }
             }
@@ -65,11 +64,9 @@ public class Tracker {
     public void delete(String id) {
         if (position != 0) {
             for (int i = 0; i < position; i++) {
-                if (items[i].getId().equals(id)) {
-                    items[i] = null;
-                    Item[] temp = new Item[position - 1];
-                    System.arraycopy(items, i + 1, temp, 0, position - (i + 1));
-                    System.arraycopy(temp, 0, items, i, temp.length - i);
+                if (items.get(i).getId().equals(id)) {
+                    items.remove(i);
+                    items.trimToSize();
                     position--;
                     break;
                 }
@@ -82,11 +79,11 @@ public class Tracker {
      *
      * @return Список заявок без пустых значений или null.
      */
-    public Item[] findAll() {
-        Item[] createdItems = null;
+    public ArrayList<Item> findAll() {
+        ArrayList<Item> createdItems = null;
         if (position != 0) {
-            createdItems = new Item[position];
-            System.arraycopy(items, 0, createdItems, 0, createdItems.length);
+            createdItems = items;
+            createdItems.trimToSize();
         }
         return createdItems;
     }
@@ -97,23 +94,17 @@ public class Tracker {
      * @param key Название заявки.
      * @return Список заявок с одинаковым именем или null.
      */
-    public Item[] findByName(String key) {
-        Item[] itemsByName = null;
+    public ArrayList<Item> findByName(String key) {
+        ArrayList<Item> itemsByName = null;
         if (position != 0) {
-            Item[] temp = new Item[position];
-            int count = 0;
-            for (int i = 0; i < items.length; i++) {
-                if (items[i] == null) {
+            itemsByName = new ArrayList<>();
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i) == null) {
                     break;
                 }
-                if (items[i].getName().equals(key)) {
-                    temp[count] = items[i];
-                    count++;
+                if (items.get(i).getName().equals(key)) {
+                    itemsByName.add(items.get(i));
                 }
-            }
-            if (count != 0) {
-                itemsByName = new Item[count];
-                System.arraycopy(temp, 0, itemsByName, 0, itemsByName.length);
             }
         }
         return itemsByName;
@@ -128,8 +119,8 @@ public class Tracker {
     public Item findById(String id) {
         Item item = null;
         for (int i = 0; i < position; i++) {
-            if (items[i].getId().equals(id)) {
-                item = items[i];
+            if (items.get(i).getId().equals(id)) {
+                item = items.get(i);
                 break;
             }
         }
