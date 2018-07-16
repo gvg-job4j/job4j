@@ -1,5 +1,6 @@
 package ru.job4j.list;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,5 +35,22 @@ public class ConvertList2Array {
             }
         }
         return array;
+    }
+
+    /**
+     * Метод собирает данные из массивов в один список.
+     *
+     * @param list Список массивов.
+     * @return Список данных из массивов.
+     */
+    public List<Integer> convert(List<int[]> list) {
+        List<Integer> outputList = new ArrayList<>();
+        for (int[] array : list
+                ) {
+            for (int i = 0; i < array.length; i++) {
+                outputList.add(array[i]);
+            }
+        }
+        return outputList;
     }
 }
