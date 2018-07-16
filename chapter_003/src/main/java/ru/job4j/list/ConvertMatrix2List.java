@@ -16,10 +16,8 @@ public class ConvertMatrix2List {
      */
     public List<Integer> toList(int[][] array) {
         List<Integer> list = new ArrayList<>();
-        for (int[] row : array
-                ) {
-            for (int column : row
-                    ) {
+        for (int[] row : array) {
+            for (int column : row) {
                 list.add(column);
             }
         }
