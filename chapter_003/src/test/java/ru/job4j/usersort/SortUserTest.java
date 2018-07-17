@@ -20,17 +20,18 @@ public class SortUserTest {
         list.add(new User("Vovan", 31));
         list.add(new User("Vovik", 39));
         list.add(new User("Vova", 30));
+        list.add(new User("Vovka", 15));
 
         SortUser sortUser = new SortUser();
         Set<User> sortSet = sortUser.sort(list);
-        int[] result = new int[3];
+        int[] result = new int[4];
         int count = 0;
         for (User user : sortSet
                 ) {
             result[count] = user.getAge();
             count++;
         }
-        int[] expect = new int[]{30, 31, 39};
+        int[] expect = new int[]{15, 30, 31, 39};
         assertThat(result, is(expect));
     }
 
