@@ -40,7 +40,7 @@ public class SortUserTest {
         List<User> list = new ArrayList<>();
         list.add(new User("Abbybas", 31));
         list.add(new User("Z", 39));
-        list.add(new User("Vovik", 15));
+        list.add(new User("Vovan", 15));
         list.add(new User("Vova", 30));
 
         SortUser sortUser = new SortUser();
@@ -62,16 +62,17 @@ public class SortUserTest {
         list.add(new User("Vovik", 39));
         list.add(new User("Vovik", 15));
         list.add(new User("Abb", 30));
+        list.add(new User("Abba", 32));
 
         SortUser sortUser = new SortUser();
         List<User> sortList = sortUser.sortByAllFields(list);
-        int[] result = new int[4];
+        int[] result = new int[5];
         int count = 0;
         for (User user : sortList) {
             result[count] = user.getAge();
             count++;
         }
-        int[] expect = new int[]{30, 31, 15, 39};
+        int[] expect = new int[]{30, 31, 32, 15, 39};
         assertThat(result, is(expect));
     }
 
