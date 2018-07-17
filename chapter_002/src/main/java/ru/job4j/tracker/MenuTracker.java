@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Valeriy Gyrievskikh
@@ -132,7 +133,7 @@ public class MenuTracker {
          */
         @Override
         public void execute(Input input, Tracker tracker) {
-            ArrayList<Item> items = tracker.findAll();
+            List<Item> items = tracker.findAll();
             if (items != null) {
                 for (Item item : tracker.findAll()
                         ) {
@@ -340,7 +341,7 @@ class FindItemsByName implements UserAction {
     @Override
     public void execute(Input input, Tracker tracker) {
         String name = input.ask("Enter the task's name:");
-        ArrayList<Item> items = tracker.findByName(name);
+        List<Item> items = tracker.findByName(name);
         if (items != null) {
             for (Item item : items
                     ) {

@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Valeriy Gyrievskikh
@@ -79,7 +80,7 @@ public class Tracker {
      *
      * @return Список заявок без пустых значений или null.
      */
-    public ArrayList<Item> findAll() {
+    public List<Item> findAll() {
         ArrayList<Item> createdItems = null;
         if (position != 0) {
             createdItems = items;
@@ -94,7 +95,7 @@ public class Tracker {
      * @param key Название заявки.
      * @return Список заявок с одинаковым именем или null.
      */
-    public ArrayList<Item> findByName(String key) {
+    public List<Item> findByName(String key) {
         ArrayList<Item> itemsByName = null;
         if (position != 0) {
             itemsByName = new ArrayList<>();
