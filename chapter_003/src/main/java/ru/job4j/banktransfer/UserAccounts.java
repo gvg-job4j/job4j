@@ -103,6 +103,27 @@ public class UserAccounts {
     }
 
     /**
+     * Метод возвращает счет пользователя.
+     *
+     * @param passport   Паспортные данные пользователя.
+     * @param requisites Реквизиты счета.
+     * @return Счет пользователя или null.
+     */
+    public Account getUserAccount(String passport, String requisites) {
+        Account userAccount = null;
+        ArrayList<Account> userAccounts = (ArrayList<Account>) getUserAccounts(passport);
+        if (userAccounts.size() > 0) {
+            for (Account account : userAccounts) {
+                if (account.getRequisites().equals(requisites)) {
+                    userAccount = account;
+                    break;
+                }
+            }
+        }
+        return userAccount;
+    }
+
+    /**
      * Метод переводит деньги с одного счета на другой.
      *
      * @param srcPassport  Паспортные данные пользователя, со счетв которого переводятся деньги.
@@ -114,22 +135,8 @@ public class UserAccounts {
      */
     public boolean transferMoney(String srcPassport, String srcRequisite, String dstPassport, String dstRequisite, double amount) {
         boolean complete = false;
-        List<Account> srcAccounts = getUserAccounts(srcPassport);
-        List<Account> dstAccounts = getUserAccounts(dstPassport);
-        Account srcAccount = null;
-        Account dstAccount = null;
-        for (Account account : srcAccounts) {
-            if (account.getRequisites().equals(srcRequisite)) {
-                srcAccount = account;
-                break;
-            }
-        }
-        for (Account account : dstAccounts) {
-            if (account.getRequisites().equals(dstRequisite)) {
-                dstAccount = account;
-                break;
-            }
-        }
+        Account srcAccount = getUserAccount(srcPassport, srcRequisite);
+        Account dstAccount = getUserAccount(dstPassport, dstRequisite);
         if (srcAccount != null && dstAccount != null) {
             if (srcAccount.getValue() >= amount) {
                 complete = true;
