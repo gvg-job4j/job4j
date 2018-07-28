@@ -47,7 +47,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenFindAllThenReturnArrayLength1() {
+    public void whenFindAllThenReturnArrayLength() {
         Tracker tracker = new Tracker();
         Item newItem = new Item("test1", "testDescription", 123L);
         tracker.add(newItem);
@@ -55,7 +55,7 @@ public class TrackerTest {
     }
 
     @Test
-    public void whenFindByNameThenReturnArrayLength2() {
+    public void whenFindByNameThenReturnArrayLength() {
         Tracker tracker = new Tracker();
         Item newItem1 = new Item("test1", "testDescription", 123L);
         Item newItem2 = new Item("test1", "testDescription", 1234L);
@@ -73,6 +73,5 @@ public class TrackerTest {
         tracker.add(newItem);
         assertThat(tracker.findById(newItem.getId()), is(newItem));
     }
-
 
 }

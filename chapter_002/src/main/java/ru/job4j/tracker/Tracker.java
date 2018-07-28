@@ -81,12 +81,13 @@ public class Tracker {
      * @return Список заявок без пустых значений или null.
      */
     public List<Item> findAll() {
-        ArrayList<Item> createdItems = null;
-        if (position != 0) {
-            createdItems = items;
-            createdItems.trimToSize();
-        }
-        return createdItems;
+        return new TrackerSearcherByString().findBy(null, items, (string, list) -> {
+            ArrayList<Item> itemsList = items;
+            if (position != 0) {
+                itemsList.trimToSize();
+            }
+            return itemsList;
+        });
     }
 
     /**
@@ -96,19 +97,21 @@ public class Tracker {
      * @return Список заявок с одинаковым именем или null.
      */
     public List<Item> findByName(String key) {
-        ArrayList<Item> itemsByName = null;
-        if (position != 0) {
-            itemsByName = new ArrayList<>();
-            for (int i = 0; i < items.size(); i++) {
-                if (items.get(i) == null) {
-                    break;
-                }
-                if (items.get(i).getName().equals(key)) {
-                    itemsByName.add(items.get(i));
+        return new TrackerSearcherByString().findBy(key, items, (string, list) -> {
+            ArrayList<Item> itemsByName = null;
+            if (position != 0) {
+                itemsByName = new ArrayList<>();
+                for (int i = 0; i < items.size(); i++) {
+                    if (items.get(i) == null) {
+                        break;
+                    }
+                    if (items.get(i).getName().equals(key)) {
+                        itemsByName.add(items.get(i));
+                    }
                 }
             }
-        }
-        return itemsByName;
+            return itemsByName;
+        });
     }
 
     /**
@@ -118,13 +121,16 @@ public class Tracker {
      * @return Найденная заявка или null.
      */
     public Item findById(String id) {
-        Item item = null;
-        for (int i = 0; i < position; i++) {
-            if (items.get(i).getId().equals(id)) {
-                item = items.get(i);
-                break;
+        List<Item> listFromId = new TrackerSearcherByString().findBy(id, items, (string, list) -> {
+            ArrayList<Item> itemsById = new ArrayList<>();
+            for (int i = 0; i < position; i++) {
+                if (items.get(i).getId().equals(id)) {
+                    itemsById.add(items.get(i));
+                    break;
+                }
             }
-        }
-        return item;
+            return itemsById;
+        });
+        return listFromId.size() == 0 ? null : listFromId.get(0);
     }
 }
