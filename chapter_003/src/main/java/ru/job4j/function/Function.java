@@ -6,6 +6,7 @@ import java.util.List;
  * @author Valeriy Gyrievskikh
  * @since 26.07.2018
  */
+@FunctionalInterface
 public interface Function<T> {
     /**
      * Метод возвращает список рассчитанных значений в указанном диапазоне.
