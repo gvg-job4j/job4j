@@ -16,11 +16,9 @@ public class UserConvert {
      * @return Карта пользователей и их идентификаторов.
      */
     public HashMap<Integer, User> process(List<User> list) {
+
         HashMap<Integer, User> userMap = new HashMap<>();
-        for (User user : list
-                ) {
-            userMap.put(user.getId(), user);
-        }
+        list.stream().forEach((user)->userMap.put(user.getId(), user));
         return userMap;
     }
 }

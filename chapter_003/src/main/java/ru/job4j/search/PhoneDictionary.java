@@ -2,6 +2,7 @@ package ru.job4j.search;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Valeriy Gyrievskikh
@@ -30,16 +31,7 @@ public class PhoneDictionary {
      * @return Список найденных пользователей, или пустой список.
      */
     public List<Person> find(String key) {
-        List<Person> result = new ArrayList<>();
-        if (persons.size() != 0) {
-            for (int i = 0; i < persons.size(); i++) {
-                Person person = persons.get(i);
-                if (verifyPerson(person, key)) {
-                    result.add(person);
-                }
-            }
-        }
-        return result;
+        return persons.stream().filter(person -> verifyPerson(person, key)).collect(Collectors.toList());
     }
 
     /**

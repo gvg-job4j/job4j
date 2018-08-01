@@ -38,11 +38,7 @@ public class DepartmentSort {
     private String[] makeSort(String[] array, boolean desc) {
         List<String> sortDepartments = new ArrayList<>();
         List<String> topDepartments = new ArrayList<>();
-        for (int i = 0; i < array.length; i++) {
-            if (!array[i].contains("\\")) {
-                topDepartments.add(array[i]);
-            }
-        }
+        Arrays.stream(array).filter((i) -> !i.contains("\\")).forEach((i) -> topDepartments.add(i));
         if (desc) {
             topDepartments.sort(Collections.reverseOrder());
         } else {
@@ -52,11 +48,7 @@ public class DepartmentSort {
             List<String> departments = new ArrayList<>();
             departments.add(topDepartments.get(i));
             String find = topDepartments.get(i) + "\\";
-            for (int j = 0; j < array.length; j++) {
-                if (array[j].indexOf(find) == 0) {
-                    departments.add(array[j]);
-                }
-            }
+            Arrays.stream(array).filter((e) -> e.indexOf(find) == 0).forEach((e) -> departments.add(e));
             if (desc) {
                 departments.sort(new DescComparator());
             } else {

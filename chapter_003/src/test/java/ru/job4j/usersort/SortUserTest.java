@@ -2,9 +2,10 @@ package ru.job4j.usersort;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.function.ToIntFunction;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -22,15 +23,11 @@ public class SortUserTest {
         list.add(new User("Vovik", 39));
         list.add(new User("Vova", 30));
         list.add(new User("Vovka", 15));
-
         SortUser sortUser = new SortUser();
         Set<User> sortSet = sortUser.sort(list);
-        int[] result = new int[4];
-        int count = 0;
-        for (User user : sortSet) {
-            result[count] = user.getAge();
-            count++;
-        }
+        List<Integer> resultList = new ArrayList<>();
+        sortSet.stream().forEach((user) -> resultList.add(user.getAge()));
+        int[] result = resultList.stream().mapToInt(i -> i).toArray();
         int[] expect = new int[]{15, 30, 31, 39};
         assertThat(result, is(expect));
     }
@@ -42,15 +39,11 @@ public class SortUserTest {
         list.add(new User("Z", 39));
         list.add(new User("Vovan", 15));
         list.add(new User("Vova", 30));
-
         SortUser sortUser = new SortUser();
         List<User> sortList = sortUser.sortNameLength(list);
-        int[] result = new int[4];
-        int count = 0;
-        for (User user : sortList) {
-            result[count] = user.getAge();
-            count++;
-        }
+        List<Integer> resultList = new ArrayList<>();
+        sortList.stream().forEach((user) -> resultList.add(user.getAge()));
+        int[] result = resultList.stream().mapToInt((i) -> i).toArray();
         int[] expect = new int[]{39, 30, 15, 31};
         assertThat(result, is(expect));
     }
@@ -63,17 +56,12 @@ public class SortUserTest {
         list.add(new User("Vovik", 15));
         list.add(new User("Abb", 30));
         list.add(new User("Abba", 32));
-
         SortUser sortUser = new SortUser();
         List<User> sortList = sortUser.sortByAllFields(list);
-        int[] result = new int[5];
-        int count = 0;
-        for (User user : sortList) {
-            result[count] = user.getAge();
-            count++;
-        }
+        List<Integer> resultList = new ArrayList<>();
+        sortList.stream().forEach((user) -> resultList.add(user.getAge()));
+        int[] result = resultList.stream().mapToInt((i) -> i).toArray();
         int[] expect = new int[]{30, 31, 32, 15, 39};
         assertThat(result, is(expect));
     }
-
 }

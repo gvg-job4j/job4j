@@ -1,6 +1,7 @@
 package ru.job4j.usersort;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Valeriy Gyrievskikh
@@ -24,8 +25,7 @@ public class SortUser {
      * @return Отсортированный список пользователей.
      */
     public List<User> sortNameLength(List<User> list) {
-        list.sort(new NameComparator());
-        return list;
+        return list.stream().sorted(new NameComparator()).collect(Collectors.toList());
     }
 
     /**
@@ -35,8 +35,7 @@ public class SortUser {
      * @return Отсортированный список пользователей.
      */
     public List<User> sortByAllFields(List<User> list) {
-        list.sort(new AgeNameComparator());
-        return list;
+        return list.stream().sorted(new AgeNameComparator()).collect(Collectors.toList());
     }
 
     /**
