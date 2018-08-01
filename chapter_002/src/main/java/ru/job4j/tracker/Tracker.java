@@ -81,9 +81,10 @@ public class Tracker {
      * @return Список заявок без пустых значений или null.
      */
     public List<Item> findAll() {
-        return new TrackerSearcherByString().findBy(null, items, (string, list) -> {
-            ArrayList<Item> itemsList = items;
-            if (position != 0) {
+        return new TrackerSearcherByString().findBy(null, items, position, (string, list, pointer) -> {
+        ArrayList<Item> itemsList = null;
+            if (pointer != 0) {
+                itemsList = (ArrayList<Item>) list;
                 itemsList.trimToSize();
             }
             return itemsList;
@@ -97,16 +98,16 @@ public class Tracker {
      * @return Список заявок с одинаковым именем или null.
      */
     public List<Item> findByName(String key) {
-        return new TrackerSearcherByString().findBy(key, items, (string, list) -> {
+        return new TrackerSearcherByString().findBy(key, items, position, (string, list, pointer) -> {
             ArrayList<Item> itemsByName = null;
-            if (position != 0) {
+            if (pointer != 0) {
                 itemsByName = new ArrayList<>();
-                for (int i = 0; i < items.size(); i++) {
-                    if (items.get(i) == null) {
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i) == null) {
                         break;
                     }
-                    if (items.get(i).getName().equals(key)) {
-                        itemsByName.add(items.get(i));
+                    if (list.get(i).getName().equals(string)) {
+                        itemsByName.add(list.get(i));
                     }
                 }
             }
@@ -121,11 +122,11 @@ public class Tracker {
      * @return Найденная заявка или null.
      */
     public Item findById(String id) {
-        List<Item> listFromId = new TrackerSearcherByString().findBy(id, items, (string, list) -> {
+        List<Item> listFromId = new TrackerSearcherByString().findBy(id, items, position, (string, list, pointer) -> {
             ArrayList<Item> itemsById = new ArrayList<>();
-            for (int i = 0; i < position; i++) {
-                if (items.get(i).getId().equals(id)) {
-                    itemsById.add(items.get(i));
+            for (int i = 0; i < pointer; i++) {
+                if (list.get(i).getId().equals(string)) {
+                    itemsById.add(list.get(i));
                     break;
                 }
             }
