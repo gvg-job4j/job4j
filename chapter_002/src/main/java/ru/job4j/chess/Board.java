@@ -4,6 +4,13 @@ import ru.job4j.chess.exception.FigureNotFoundException;
 import ru.job4j.chess.exception.ImpossibleMoveException;
 import ru.job4j.chess.exception.OccupiedWayException;
 import ru.job4j.chess.figures.*;
+import ru.job4j.chess.find.Checker;
+import ru.job4j.chess.find.Contained;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * Класс реализует шахматную доску.
@@ -61,15 +68,18 @@ public class Board {
      * @throws OccupiedWayException Прерывание выбрасывается, если движению фигуры  мешают другие фигуры.
      */
     private boolean contain(Figure figure, Cell[] wayCells) throws OccupiedWayException {
-        boolean isOccupied = false;
-        for (int i = 0; i < figures.length; i++) {
-            for (int j = 0; j < wayCells.length; j++) {
-                if (figures[i] != null && figures[i].getPosition() == wayCells[j]) {
-                    isOccupied = true;
-                    break;
+        boolean isOccupied = new Checker().containFigure(figures, wayCells, (allFigures, path) -> {
+            boolean isContain = false;
+            for (int i = 0; i < allFigures.length; i++) {
+                for (int j = 0; j < path.length; j++) {
+                    if (allFigures[i] != null && allFigures[i].getPosition() == path[j]) {
+                        isContain = true;
+                        break;
+                    }
                 }
             }
-        }
+            return isContain;
+        });
         if (isOccupied) {
             throw new OccupiedWayException();
         }
