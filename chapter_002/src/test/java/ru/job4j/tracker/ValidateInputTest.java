@@ -1,11 +1,11 @@
 package ru.job4j.tracker;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.hamcrest.core.Is.is;
@@ -16,7 +16,7 @@ import static org.hamcrest.core.Is.is;
  * @since 30.06.2018.
  */
 public class ValidateInputTest {
-    private final ByteOutputStream mem = new ByteOutputStream();
+    private final ByteArrayOutputStream mem = new ByteArrayOutputStream();
     private final PrintStream out = System.out;
 
     @Before
