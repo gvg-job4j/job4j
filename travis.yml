@@ -3,6 +3,12 @@ language: java
 # используем режим обычного пользователя для сборки проекта.
 sudo: false
 
+# Build all branches, *including* gh-pages:
+branches:
+  only:
+  - gh-pages
+  - /.*/
+
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонни сервис https://codecov.io/
 after_success:
